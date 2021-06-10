@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="utf-8">
+    <title>Empresas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+</head>
+<body sec:authorize="isAuthenticated()">
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <form id="logoutForm" method="POST" th:action="@{/logout}">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    </form>
+    <a style="margin-left: 40px;" class="navbar-brand" href="#">Olá, <span sec:authentication="name"></span> | <a onclick="document.forms['logoutForm'].submit()" style="cursor:pointer;">Logout</a></a>
+    <div style="margin-left: 30%;" class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="/welcome">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/companies">Empresas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/contact">Fale Conosco</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div style="width: 100%;display: flex;
+    margin-top: 40px;">
+    <a style="margin:auto;" href="/create-company" class="btn btn-lg btn-primary btn-block">Criar uma nova empresa</a>
+</div>
+<table style="width: 90%;
+    margin: auto;
+    margin-top: 40px;" class="table" th:switch="${companies}">
+    <thead>
+    <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">E-mail</th>
+        <th scope="col">Telefone</th>
+        <th scope="col">Opções</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="company : ${companies}">
+        <th scope="row" th:text="${company.name}"></th>
+        <td th:text="${company.email}"></td>
+        <td th:text="${company.telephone}"></td>
+        <td><a th:href="@{/update-company/{id}(id=${company.id})}">Editar</a> | <a th:href="@{/delete-company/{id}(id=${company.id})}">Excluir</a></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

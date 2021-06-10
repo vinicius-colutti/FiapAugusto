@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="utf-8">
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+</head>
+<body sec:authorize="isAuthenticated()">
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <form id="logoutForm" method="POST" th:action="@{/logout}">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    </form>
+    <a style="margin-left: 40px;" class="navbar-brand" href="#">Olá, <span sec:authentication="name"></span> | <a onclick="document.forms['logoutForm'].submit()" style="cursor:pointer;">Logout</a></a>
+    <div style="margin-left: 30%;" class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="/welcome">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/companies">Empresas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/contact">Fale Conosco</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="card bg-dark text-white">
+    <img style="opacity: 30%;" src="https://sindpd.org.br/sindpd/upload/news/1619460844146.jpg" class="card-img" alt="...">
+    <div class="card-img-overlay">
+        <h5 class="card-title">BootCamp PS13SI</h5>
+        <p class="card-text">Enquanto a população mundial e muitas organizações sofriam com as agruras
+            decorrentes do estado Pandemia imposto pela doença do coronavírus COVID
+            19, um grupo de estudantes destemidos (e isolados em suas residências),
+            ávidos por colocar seus conhecimentos em prática e empreender, aproveitava
+            uma série de novas oportunidades que se apresentavam a cada dia. Depois de
+            um ano de pesquisa criteriosa de mercado, muito planejamento e
+            desenvolvimento, concretizaram no início de 2021 o sonho de uma startup: a
+            PS13SI.</p>
+        <p class="card-text">Desde o lançamento da PS13SI o grupo destemido estava
+            aproveitando os equipamentos e o espaço de uma pequena empresa, cedido
+            por um familiar de um dos integrantes e que, infelizmente, teve que fechar as
+            portas de sua empresa.</p>
+    </div>
+</div>
+
+</body>
+</html>
